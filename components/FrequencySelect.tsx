@@ -11,6 +11,7 @@ export default function FrequencySelect({
 }) {
   return (
     <div className="flex gap-2 flex-wrap">
+      <button>+</button>
       {OPTIONS.map((o) => (
         <button
           key={o}

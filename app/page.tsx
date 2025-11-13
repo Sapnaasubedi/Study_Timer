@@ -3,6 +3,7 @@
 import FrequencySelect from "@/components/FrequencySelect";
 import Timer from "@/components/Timer";
 import { useEffect, useState } from "react";
+import "./globals.css";
 
 type Session = {
   id: string;
@@ -39,36 +40,35 @@ export default function Home() {
   const clearHistory = () => setHistory([]);
 
   return (
-    <main className="min-h-screen bg-linear-to-br from-indigo-50 to-white flex items-center justify-center p-6">
+    <main className="min-h-screen bg-pink-200 flex items-center justify-center p-6">
       <div className="w-full max-w-3xl">
-        <header className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold">Study Timer</h1>
-          <div className="text-sm text-gray-600">
+        <header className="flex items-center justify-center mb-6">
+          <h1 className="text-3xl font-bold ">Focus Time</h1>
+          {/* <div className="text-sm text-gray-600">
             Focus sessions & simple history
-          </div>
+          </div> */}
         </header>
 
-        <section className="grid md:grid-cols-2 gap-6">
-          <div>
-            <div className="mb-4">
-              <label className="block text-sm text-gray-700 mb-1">
-                Session length
-              </label>
-              <FrequencySelect value={minutes} onChange={setMinutes} />
-            </div>
-
-            <Timer defaultMinutes={minutes} onSessionEnd={handleSessionEnd} />
+        {/* <section className="grid md:grid-cols-2 gap-6"> */}
+        <div>
+          <div className="mb-4 flex justify-center">
+            {/* <label className="block text-sm text-gray-700 mb-1">
+              Session length
+            </label> */}
+            {/* <FrequencySelect value={minutes} onChange={setMinutes} /> */}
           </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-2">
+          <Timer defaultMinutes={minutes} onSessionEnd={handleSessionEnd} />
+        </div>
+
+        {/* <div className="flex items-center justify-between mb-2">
               <h2 className="text-xl font-semibold">History</h2>
               <button onClick={clearHistory} className="text-sm text-red-600">
                 Clear
               </button>
-            </div>
+            </div> */}
 
-            <ul className="space-y-2 max-h-96 overflow-auto">
+        {/* <ul className="space-y-2 max-h-96 overflow-auto">
               {history.length === 0 && (
                 <div className="text-gray-500">No sessions yet</div>
               )}
@@ -86,9 +86,8 @@ export default function Home() {
                   <div className="text-sm text-gray-600">Done</div>
                 </li>
               ))}
-            </ul>
-          </div>
-        </section>
+            </ul> */}
+        {/* </section> */}
       </div>
     </main>
   );

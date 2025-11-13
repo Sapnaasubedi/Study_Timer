@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import "../app/globals.css";
 
 type TimerState = "stopped" | "running" | "paused";
 
@@ -73,11 +74,17 @@ export default function Timer({ defaultMinutes = 25, onSessionEnd }: Props) {
   const ss = String(secondsLeft % 60).padStart(2, "0");
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white/80 p-6 rounded-2xl shadow-lg">
+    <div className="w-full max-w-md mx-auto ">
       <div className="text-center">
-        <div className="text-6xl font-extrabold">
-          {mm}:{ss}
+        <div className="flex gap-2">
+          <div className="text-pink-200 text-9xl font-extrabold  bg-red-100 p-20 rounded-2xl shadow-lg ">
+            {mm}
+          </div>
+          <div className="text-9xl text-pink-200  font-extrabold  bg-red-100 p-20 rounded-2xl shadow-lg ">
+            {ss}
+          </div>
         </div>
+
         <div className="mt-3 text-sm text-gray-600">Mode: {mode}</div>
         <div className="mt-4 flex justify-center gap-3">
           {mode !== "running" && (
