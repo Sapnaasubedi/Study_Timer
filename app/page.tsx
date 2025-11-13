@@ -1,65 +1,95 @@
-import Image from "next/image";
+"use client";
+
+import FrequencySelect from "@/components/FrequencySelect";
+import Timer from "@/components/Timer";
+import { useEffect, useState } from "react";
+
+type Session = {
+  id: string;
+  seconds: number;
+  minutes: number;
+  createdAt: number;
+};
 
 export default function Home() {
+  const [minutes, setMinutes] = useState(25);
+  const [history, setHistory] = useState<Session[]>(() => {
+    try {
+      const raw = localStorage.getItem("timer_history");
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("timer_history", JSON.stringify(history));
+  }, [history]);
+
+  const handleSessionEnd = (seconds: number) => {
+    const session: Session = {
+      id: `${Date.now()}`,
+      seconds,
+      minutes: Math.round(seconds / 60),
+      createdAt: Date.now(),
+    };
+    setHistory((h) => [session, ...h].slice(0, 50));
+  };
+
+  const clearHistory = () => setHistory([]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="min-h-screen bg-linear-to-br from-indigo-50 to-white flex items-center justify-center p-6">
+      <div className="w-full max-w-3xl">
+        <header className="flex items-center justify-between mb-6">
+          <h1 className="text-3xl font-bold">Study Timer</h1>
+          <div className="text-sm text-gray-600">
+            Focus sessions & simple history
+          </div>
+        </header>
+
+        <section className="grid md:grid-cols-2 gap-6">
+          <div>
+            <div className="mb-4">
+              <label className="block text-sm text-gray-700 mb-1">
+                Session length
+              </label>
+              <FrequencySelect value={minutes} onChange={setMinutes} />
+            </div>
+
+            <Timer defaultMinutes={minutes} onSessionEnd={handleSessionEnd} />
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-xl font-semibold">History</h2>
+              <button onClick={clearHistory} className="text-sm text-red-600">
+                Clear
+              </button>
+            </div>
+
+            <ul className="space-y-2 max-h-96 overflow-auto">
+              {history.length === 0 && (
+                <div className="text-gray-500">No sessions yet</div>
+              )}
+              {history.map((s) => (
+                <li
+                  key={s.id}
+                  className="bg-white p-3 rounded shadow-sm flex justify-between items-center"
+                >
+                  <div>
+                    <div className="font-medium">{s.minutes} min</div>
+                    <div className="text-xs text-gray-500">
+                      {new Date(s.createdAt).toLocaleString()} • {s.seconds}s
+                    </div>
+                  </div>
+                  <div className="text-sm text-gray-600">Done</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }
