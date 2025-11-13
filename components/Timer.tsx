@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../app/globals.css";
 
 type TimerState = "stopped" | "running" | "paused";
@@ -75,17 +75,17 @@ export default function Timer({ defaultMinutes = 25, onSessionEnd }: Props) {
 
   return (
     <div className="w-full max-w-md mx-auto ">
-      <div className="text-center">
-        <div className="flex gap-2">
-          <div className="text-pink-200 text-9xl font-extrabold  bg-red-100 p-20 rounded-2xl shadow-lg ">
-            {mm}
+      <div className="text-center ">
+        <div className="flex gap-2 justify-center">
+          <div className="  bg-red-100 p-20 rounded-2xl shadow-lg ">
+            <h2 className="text-pink-200 text-9xl font-extrabold">{mm}</h2>
           </div>
-          <div className="text-9xl text-pink-200  font-extrabold  bg-red-100 p-20 rounded-2xl shadow-lg ">
-            {ss}
+          <div className=" p-20 rounded-2xl shadow-lg  bg-red-100">
+            <h2 className="text-9xl text-pink-200  font-extrabold "> {ss}</h2>
           </div>
         </div>
 
-        <div className="mt-3 text-sm text-gray-600">Mode: {mode}</div>
+        {/* <div className="mt-3 text-sm text-gray-600">Mode: {mode}</div> */}
         <div className="mt-4 flex justify-center gap-3">
           {mode !== "running" && (
             <button

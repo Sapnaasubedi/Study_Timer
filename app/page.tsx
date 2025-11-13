@@ -43,23 +43,23 @@ export default function Home() {
     <main className="min-h-screen bg-pink-200 flex items-center justify-center p-6">
       <div className="w-full max-w-3xl">
         <header className="flex items-center justify-center mb-6">
-          <h1 className="text-3xl font-bold ">Focus Time</h1>
+          {/* <h1 className="text-3xl font-bold ">Focus Time</h1> */}
           {/* <div className="text-sm text-gray-600">
             Focus sessions & simple history
           </div> */}
         </header>
 
         {/* <section className="grid md:grid-cols-2 gap-6"> */}
-        <div>
-          <div className="mb-4 flex justify-center">
-            {/* <label className="block text-sm text-gray-700 mb-1">
+        {/* <div> */}
+        {/* <div className="mb-4 flex justify-center"> */}
+        {/* <label className="block text-sm text-gray-700 mb-1">
               Session length
             </label> */}
-            {/* <FrequencySelect value={minutes} onChange={setMinutes} /> */}
-          </div>
+        {/* <FrequencySelect value={minutes} onChange={setMinutes} /> */}
+        {/* </div> */}
 
-          <Timer defaultMinutes={minutes} onSessionEnd={handleSessionEnd} />
-        </div>
+        <Timer defaultMinutes={minutes} onSessionEnd={handleSessionEnd} />
+        {/* </div> */}
 
         {/* <div className="flex items-center justify-between mb-2">
               <h2 className="text-xl font-semibold">History</h2>
