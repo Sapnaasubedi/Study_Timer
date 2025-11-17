@@ -76,7 +76,7 @@ export default function Timer({ defaultMinutes = 25, onSessionEnd }: Props) {
   return (
     <div className="w-full max-w-md mx-auto ">
       <div className="text-center ">
-        <div className="flex gap-2 justify-center">
+        <div className="flex gap-2 justify-center ">
           <div className="  bg-red-100 p-20 rounded-2xl shadow-lg ">
             <h2 className="text-pink-200 text-9xl font-extrabold">{mm}</h2>
           </div>
